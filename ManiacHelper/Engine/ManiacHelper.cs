@@ -5,8 +5,8 @@ namespace ManiacHelper.Engine
 {
     class ManiacHelper
     {
-        IDictionary<string, IWordModel> _resource;
-        public ManiacHelper(IDictionary<string, IWordModel> resource)
+        IDictionary<string, int> _resource;
+        public ManiacHelper(IDictionary<string, int> resource)
         {
             _resource = resource;
         }
@@ -15,14 +15,13 @@ namespace ManiacHelper.Engine
         {
             if (arrayWords?.Length > 0)
             {
-                IWordModel model;
                 foreach (var word in arrayWords)
                 {
-                    if (_resource.TryGetValue(word, out model))
+                    if (_resource.TryGetValue(word, out int count))
                     {
-                        if (model.count > 1)
+                        if (count > 1)
                         {
-                            model.count--;
+                            count--;
                         }
                         else
                         {

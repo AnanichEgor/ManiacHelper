@@ -8,7 +8,7 @@ namespace ManiacHelper
         {
             var resource = new Resources(@"..\..\..\Resources\GK.txt");
             var testPhrase = new Engine.ManiacHelper(resource.ArrayDictionary);
-            Console.WriteLine(testPhrase.PhraseCheck("Национальный реестр правовых актов ребенока"));
+            Console.WriteLine(testPhrase.PhraseCheck("Национальный реестр правовых актов"));
             Console.ReadKey();
         }
     }

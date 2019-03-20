@@ -1,23 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace ManiacHelper
 {
     class Resources
     {
-        public Dictionary<string, IWordModel> ArrayDictionary { get; } = new Dictionary<string, IWordModel>();
+        private IDictionary<string, int> _arrayDictionary = new Dictionary<string, int>();
+        public IDictionary<string, int> ArrayDictionary { get => _arrayDictionary; }
+        static readonly string pattern = "[^A-Za-zА-Яа-я]+";
 
         public Resources(string filePath)
         {
-            ReadFile(filePath);
+            ReadFile(filePath, true);
         }
 
         static public string[] GetWords(string line)
         {
             if (line != null)
             {
-                string pattern = "[^A-Za-zА-Яа-я]+";
                 return Regex.Split(line, pattern, RegexOptions.IgnorePatternWhitespace);
             }
             else
@@ -33,31 +36,51 @@ namespace ManiacHelper
             {
                 foreach (string word in arrayWords)
                 {
-                    IWordModel model;
-                    if (ArrayDictionary.TryGetValue(word, out model))
+                    if (_arrayDictionary.TryGetValue(word, out int count))
                     {
-                        model.count++;
+                        count++;
                     }
                     else
                     {
-                        var item = new WordModel { count = 1, word = word };
-                        ArrayDictionary.Add(word, item);
+                        _arrayDictionary.Add(word, 1);
                     }
                 }
             }
         }
 
-        private void ReadFile(string path)
+        private void AddWords(IDictionary<string, int> dictionaryWords)
+        {
+            if (dictionaryWords?.Count > 0)
+            {
+                _arrayDictionary = dictionaryWords;
+            }
+        }
+
+        private void ReadFile(string path, bool useLINQ = false)
         {
             if (File.Exists(path))
             {
                 using (StreamReader textReader = new StreamReader(path))
                 {
                     string strLine = "";
-                    while (strLine != null)
+                    if (useLINQ)
                     {
-                        strLine = textReader.ReadLine();
-                        AddWords(GetWords(strLine));
+                        strLine = textReader.ReadToEnd();
+                        var arrayWors = Regex.Split(strLine, pattern)
+                        .Select(x => x.Trim())
+                        .Where(x => !string.IsNullOrEmpty(x))
+                        .GroupBy(x => x)
+                        .Select(g => new { key = g.Key, count = g.Count() })
+                        .ToDictionary(pair => pair.key, pair => pair.count);
+                        AddWords(arrayWors);
+                    }
+                    else
+                    {
+                        while (strLine != null)
+                        {
+                            strLine = textReader.ReadLine();
+                            AddWords(GetWords(strLine));
+                        }
                     }
                 }
             }
