@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManiacHelper", "ManiacHelper\ManiacHelper.csproj", "{DBA5DBF7-6C53-4E90-9BEB-F97A6EF0539A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBA5DBF7-6C53-4E90-9BEB-F97A6EF0539A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA5DBF7-6C53-4E90-9BEB-F97A6EF0539A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA5DBF7-6C53-4E90-9BEB-F97A6EF0539A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBA5DBF7-6C53-4E90-9BEB-F97A6EF0539A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4DF466CB-9259-4B63-92ED-307EA19F2B46}
+	EndGlobalSection
+EndGlobal
