@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ManiacHelper
@@ -9,7 +10,9 @@ namespace ManiacHelper
     class Resources
     {
         private IDictionary<string, int> _arrayDictionary = new Dictionary<string, int>();
+        private StringBuilder _stringAllText = new StringBuilder();
         public IDictionary<string, int> ArrayDictionary { get => _arrayDictionary; }
+        public StringBuilder StringAllText { get => _stringAllText; }
         static readonly string pattern = "[^A-Za-zА-Яа-я]+";
 
         public Resources(string filePath)
@@ -66,6 +69,7 @@ namespace ManiacHelper
                     if (useLINQ)
                     {
                         strLine = textReader.ReadToEnd();
+                        _stringAllText.Append(strLine);
                         var arrayWors = Regex.Split(strLine, pattern)
                         .Select(x => x.Trim())
                         .Where(x => !string.IsNullOrEmpty(x))
